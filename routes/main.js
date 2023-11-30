@@ -27,7 +27,7 @@ module.exports = function(app, weatherData) {
             // Store hashed password in your database.
             console.log(hashedPassword);
 
-            let sqlquery = "INSERT INTO registration (first, last, email, username, hashedPassword) VALUES (?,?,?,?,?)";
+            let sqlquery = "INSERT INTO logins (first, last, email, username, hashedPassword) VALUES (?,?,?,?,?)";
             // execute sql query
             let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hashedPassword];
             db.query(sqlquery, newrecord, (err, result) => {
@@ -77,18 +77,18 @@ module.exports = function(app, weatherData) {
     })
     
 
-    app.get('/list', function(req, res) {
-        let sqlquery = "SELECT * FROM books"; // query database to get all the books
-    // execute sql query
-    db.query(sqlquery, (err, result) => { 
-        if (err) {
-        res.redirect('./'); 
-    } 
-    let newData = Object.assign({}, weatherData, {availableBooks:result});
-    console.log(newData)
-    res.render("list.ejs", newData) 
-    });
-    });
+    // app.get('/list', function(req, res) {
+    //     let sqlquery = "SELECT * FROM books"; // query database to get all the books
+    // // execute sql query
+    // db.query(sqlquery, (err, result) => { 
+    //     if (err) {
+    //     res.redirect('./'); 
+    // } 
+    // let newData = Object.assign({}, weatherData, {availableBooks:result});
+    // console.log(newData)
+    // res.render("list.ejs", newData) 
+    // });
+    // });
 
     app.get('/listeners', function(req, res) {
         let sqlquery = "SELECT * FROM registration"; // query database to get all the logins
