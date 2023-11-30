@@ -14,7 +14,7 @@ const db = mysql.createConnection ({
     host: 'localhost', 
     user: 'appuser', 
     password: 'app2027', 
-    database: 'myBookshop'
+    database: 'myWeatherapp'
 });
 // to connect to the database
 db.connect((err) => { 
@@ -41,10 +41,10 @@ app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
 // Define our data
-var shopData = {shopName: "Bertie's Wonderful lovely Books"}
+var weatherData = {appName: "Bertie's Wonderful lovely Books"}
 
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
-require("./routes/main")(app, shopData);
+require("./routes/main")(app, weatherData);
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

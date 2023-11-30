@@ -1,21 +1,21 @@
-module.exports = function(app, shopData) {
+module.exports = function(app, weatherData) {
 
     // Handle our routes
     app.get('/',function(req,res){
-        res.render('index.ejs', shopData)
+        res.render('index.ejs', weatherData)
     });
     app.get('/about',function(req,res){
-        res.render('about.ejs', shopData);
+        res.render('about.ejs', weatherData);
     });
     app.get('/search',function(req,res){
-        res.render("search.ejs", shopData);
+        res.render("search.ejs", weatherData);
     });
     app.get('/search-result', function (req, res) {
         //searching in the database
         res.send("You searched for: " + req.query.keyword);
     });
     app.get('/register', function (req,res) {
-        res.render('register.ejs', shopData);                                                                     
+        res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
     app.post('/registered', function (req,res) {
         // saving data in database
@@ -42,7 +42,7 @@ module.exports = function(app, shopData) {
 
     }); 
     app.get('/login', function (req,res) {
-        res.render('login.ejs', shopData);                                                                     
+        res.render('login.ejs', weatherData);                                                                     
     });
     app.post('/loggedin', function (req,res) {
         const bcrypt = require('bcrypt');
@@ -84,7 +84,7 @@ module.exports = function(app, shopData) {
         if (err) {
         res.redirect('./'); 
     } 
-    let newData = Object.assign({}, shopData, {availableBooks:result});
+    let newData = Object.assign({}, weatherData, {availableBooks:result});
     console.log(newData)
     res.render("list.ejs", newData) 
     });
@@ -97,14 +97,14 @@ module.exports = function(app, shopData) {
         if (err) {
         res.redirect('./'); 
     } 
-    let newData = Object.assign({}, shopData, {availableLogins:result});
+    let newData = Object.assign({}, weatherData, {availableLogins:result});
     console.log(newData)
     res.render("listeners.ejs", newData) 
     });
     });
 
     app.get('/addbook',function(req,res){ //to get the addbook page
-        res.render('addbook.ejs', shopData);
+        res.render('addbook.ejs', weatherData);
     });
     app.post('/bookadded', function (req,res) {
         // saving data in database
@@ -130,7 +130,7 @@ module.exports = function(app, shopData) {
     //         if (err) {
     //         res.redirect('./'); 
     //     } 
-    //     let newData = Object.assign({}, shopData, {availableBooks:result});
+    //     let newData = Object.assign({}, weatherData, {availableBooks:result});
     //     console.log(newData)
     //     res.render("barginbooks.ejs", newData) 
     //     });
