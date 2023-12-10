@@ -24,7 +24,7 @@ module.exports = function(app, weatherData) {
     app.get('/register', function (req,res) {
         res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
-    app.post('/registered',[check('email').isEmail(), body('password').isLength({ min:8})], function (req,res) {
+    app.post('/registered',[check('email').isEmail(), body('password').isLength({min:8})], function (req,res) {
         // saving data in database
         const errors = validationResult(req);
 
