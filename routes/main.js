@@ -73,7 +73,7 @@ module.exports = function(app, weatherData) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
                       res.send('You are now Logged in!');
-                      res.redirect('/index.ejs');
+                      res.redirect('./index.ejs')
                     }
                     else {
                       // TODO: Send message
