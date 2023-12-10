@@ -72,8 +72,8 @@ module.exports = function(app, weatherData) {
                     else if (result == true) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
-                      res.send('You are now Logged in!');
-                      res.redirect('/')
+                    //   res.send('You are now Logged in!');
+                      res.redirect('/');
                     }
                     else {
                       // TODO: Send message
