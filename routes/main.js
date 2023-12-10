@@ -8,7 +8,7 @@ module.exports = function(app, weatherData) {
 
 
     // Handle our routes
-    app.get('/', function(req,res){
+    app.get('/',redirectLogin, function(req,res){
         res.render('index.ejs', weatherData)
     });
     app.get('/about',function(req,res){
@@ -54,7 +54,7 @@ module.exports = function(app, weatherData) {
     app.post('/loggedin', function (req,res) {
         const bcrypt = require('bcrypt');
 
-        let sqlquery = "SELECT hashedPassword FROM registration WHERE username = ? ";
+        let sqlquery = "SELECT hashedPassword FROM logins WHERE username = ? ";
         let lgdetails = [req.body.username];
         db.query(sqlquery, lgdetails, (err, result) => {
             console.log(result);
