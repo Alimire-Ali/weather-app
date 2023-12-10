@@ -1,7 +1,14 @@
 module.exports = function(app, weatherData) {
 
+    const redirectLogin = (req, res, next) => {
+        if (!req.session.userId ) {
+          res.redirect('./login')
+        } else { next (); }
+    } //session logging.
+
+
     // Handle our routes
-    app.get('/',function(req,res){
+    app.get('/',redirectLogin, function(req,res){
         res.render('index.ejs', weatherData)
     });
     app.get('/about',function(req,res){
@@ -64,6 +71,7 @@ module.exports = function(app, weatherData) {
                     }
                     else if (result == true) {
                       // TODO: Send message
+                      req.session.userId = req.body.username;
                       res.send('You are now Logged in!');
                     }
                     else {
