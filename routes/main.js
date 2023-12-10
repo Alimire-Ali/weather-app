@@ -8,7 +8,7 @@ module.exports = function(app, weatherData) {
 
 
     // Handle our routes
-    app.get('/', function(req,res){
+    app.get('/',redirectLogin, function(req,res){
         res.render('index.ejs', weatherData)
     });
     app.get('/about',function(req,res){
@@ -73,6 +73,7 @@ module.exports = function(app, weatherData) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
                       res.send('You are now Logged in!');
+                      res.redirect('/index.ejs');
                     }
                     else {
                       // TODO: Send message
