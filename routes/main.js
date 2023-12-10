@@ -5,7 +5,7 @@ module.exports = function(app, weatherData) {
           res.redirect('./login')
         } else { next (); }
     } //session logging.
-    const { check, validationResult } = require('express-validator');
+    const { check, validationResult, body } = require('express-validator');
 
     // Handle our routes
     app.get('/',redirectLogin, function(req,res){
@@ -24,7 +24,7 @@ module.exports = function(app, weatherData) {
     app.get('/register', function (req,res) {
         res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
-    app.post('/registered',[check('email').isEmail(), check('password').isLength({ min:8})], function (req,res) {
+    app.post('/registered',[check('email').isEmail(), body('password').isLength({ min:8})], function (req,res) {
         // saving data in database
         const errors = validationResult(req);
 
