@@ -5,7 +5,7 @@ module.exports = function(app, weatherData) {
           res.redirect('./login')
         } else { next (); }
     } //session logging.
-
+    const { check, validationResult } = require('express-validator');
 
     // Handle our routes
     app.get('/',redirectLogin, function(req,res){
@@ -24,29 +24,34 @@ module.exports = function(app, weatherData) {
     app.get('/register', function (req,res) {
         res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
-    app.post('/registered', function (req,res) {
+    app.post('/registered',[check('email').isEmail(), check('password').isLength({ min:8})], function (req,res) {
         // saving data in database
-        const bcrypt = require('bcrypt');
-        const saltRounds = 10;
-        const plainPassword = req.body.password;
+        const errors = validationResult(req);
 
-        bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
-            // Store hashed password in your database.
-            console.log(hashedPassword);
+        if (!errors.isEmpty()) {
+            res.redirect('./register');}
+        else {
+            const bcrypt = require('bcrypt');
+            const saltRounds = 10;
+            const plainPassword = req.body.password;
 
-            let sqlquery = "INSERT INTO logins (first, last, email, username, hashedPassword) VALUES (?,?,?,?,?)";
-            // execute sql query
-            let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hashedPassword];
-            db.query(sqlquery, newrecord, (err, result) => {
-                if (err) {
-                return console.error(err.message);
-                }
-                else
-                res.send(' Your details have been added to the database, name: '+ req.body.first + ' ' + req.body.last + ' Your email is: ' + req.body.email + ' Your password is: '+ req.body.password + ' Your hashed password is: ' + hashedPassword );
-                });
+            bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
+                // Store hashed password in your database.
+                console.log(hashedPassword);
 
-          })
+                let sqlquery = "INSERT INTO logins (first, last, email, username, hashedPassword) VALUES (?,?,?,?,?)";
+                // execute sql query
+                let newrecord = [req.body.first, req.body.last, req.body.email, req.body.username, hashedPassword];
+                db.query(sqlquery, newrecord, (err, result) => {
+                    if (err) {
+                    return console.error(err.message);
+                    }
+                    else
+                    res.send(' Your details have been added to the database, name: '+ req.body.first + ' ' + req.body.last + ' Your email is: ' + req.body.email + ' Your password is: '+ req.body.password + ' Your hashed password is: ' + hashedPassword );
+                    });
 
+            })
+        }
     }); 
     app.get('/login', function (req,res) {
         res.render('login.ejs', weatherData);                                                                     
@@ -72,7 +77,7 @@ module.exports = function(app, weatherData) {
                     else if (result == true) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
-                    //   res.send('You are now Logged in!');
+                    //   res.send('You are now Logged in!');                     this statement kept giving me errors
                       res.redirect('./');
                     }
                     else {
