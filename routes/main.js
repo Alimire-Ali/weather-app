@@ -8,7 +8,7 @@ module.exports = function(app, weatherData) {
 
 
     // Handle our routes
-    app.get('/',, function(req,res){
+    app.get('/', function(req,res){
         res.render('index.ejs', weatherData)
     });
     app.get('/about',function(req,res){
