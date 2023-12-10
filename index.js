@@ -51,7 +51,7 @@ app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
 // Define our data
-var weatherData = {appName: "Bertie's Wonderful lovely Books"}
+var weatherData = {appName: "Alimires Weather App"}
 
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
 require("./routes/main")(app, weatherData);
