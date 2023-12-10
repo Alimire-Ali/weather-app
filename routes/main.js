@@ -9,7 +9,7 @@ module.exports = function(app, weatherData) {
 
     // Handle our routes
     app.get('/',redirectLogin, function(req,res){
-        res.render('index.ejs', weatherData)
+        res.render('index.ejs', weatherData);
     });
     app.get('/about',function(req,res){
         res.render('about.ejs', weatherData);
@@ -73,6 +73,7 @@ module.exports = function(app, weatherData) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
                       res.send('You are now Logged in!');
+                      res.render('index.ejs', weatherData);
                     }
                     else {
                       // TODO: Send message
@@ -83,6 +84,16 @@ module.exports = function(app, weatherData) {
             
         });      
     })
+
+    app.get('/logout', redirectLogin, (req,res) => {
+        req.session.destroy(err => {
+        if (err) {
+          return res.redirect('./')
+        }
+        res.send('you are now logged out. <a href='+'./'+'>Home</a>');
+        })
+    })
+
     
 
     // app.get('/list', function(req, res) {
