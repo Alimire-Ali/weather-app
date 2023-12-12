@@ -37,7 +37,8 @@ db.connect((err) => {
     }
 }));
 
-
+// creating an input sanitizer
+app.use(expressSanitizer());
 // Set up css
 app.use(express.static(__dirname + '/public'));
 
@@ -61,4 +62,5 @@ require("./routes/main")(app, weatherData);
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-app.use(expressSanitizer());//
+// // creating an input sanitizer
+// app.use(expressSanitizer());
