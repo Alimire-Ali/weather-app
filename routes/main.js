@@ -26,8 +26,9 @@ module.exports = function(app, weatherData) {
     });                                                                                                 
     app.post('/registered',[check('email').isEmail(), body('password').isLength({min:8})], function (req,res) {
         // saving data in database
+        req.body.first = req.sanitize(req.body.first);
         const errors = validationResult(req);
-        req.sanitize(req.body.first);
+        
 
         if (!errors.isEmpty()) {
             res.redirect('./register');}
@@ -80,7 +81,6 @@ module.exports = function(app, weatherData) {
                     else if (result == true) {
                       // TODO: Send message
                       req.session.userId = req.body.username;
-                    //   res.send('You are now Logged in!');                     this statement kept giving me errors
                       res.redirect('./');
                     }
                     else {
