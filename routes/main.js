@@ -24,9 +24,9 @@ module.exports = function(app, weatherData) {
     app.get('/register', function (req,res) {
         res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
-    app.post('/registered',[check('email').isEmail(), body('password').isLength({min:8})], req.sanitize(req.body.first), function (req,res) {
+    app.post('/registered',[check('email').isEmail(), check('password').isLength({min:8}).withMessage('Password must be 8+ characters long')], function (req,res) {
         // saving data in database
-        // req.sanitize(req.body.first);
+        req.body.first = req.sanitize(req.body.first);
         const errors = validationResult(req);
         
 
