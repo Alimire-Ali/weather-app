@@ -35,6 +35,8 @@ module.exports = function(app, weatherData) {
             const saltRounds = 10;
             const plainPassword = req.body.password;
 
+            req.sanitize(req.body.first);
+
             bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
                 // Store hashed password in your database.
                 console.log(hashedPassword);

@@ -5,6 +5,7 @@ var bodyParser= require ('body-parser')
 const mysql = require('mysql');
 var session = require('express-session');
 var validator = require('express-validator');
+const expressSanitizer = require('express-sanitizer');
 
 // Create the express application object
 const app = express()
@@ -59,3 +60,5 @@ require("./routes/main")(app, weatherData);
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+const expressSanitizer = require('express-sanitizer'); //
