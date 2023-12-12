@@ -39,6 +39,7 @@ db.connect((err) => {
 
 // creating an input sanitizer
 app.use(expressSanitizer());
+
 // Set up css
 app.use(express.static(__dirname + '/public'));
 

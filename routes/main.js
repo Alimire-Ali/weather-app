@@ -26,7 +26,8 @@ module.exports = function(app, weatherData) {
     });                                                                                                 
     app.post('/registered',[check('email').isEmail(), check('password').isLength({min:8}).withMessage('Password must be 8+ characters long')], function (req,res) {
         // saving data in database
-        req.body.first = req.sanitize(req.body.first);
+        
+        req.sanitize(req.body.first);
         const errors = validationResult(req);
         
 
