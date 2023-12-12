@@ -61,4 +61,4 @@ require("./routes/main")(app, weatherData);
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
-const expressSanitizer = require('express-sanitizer'); //
+app.use(expressSanitizer());//
