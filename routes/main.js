@@ -27,6 +27,7 @@ module.exports = function(app, weatherData) {
     app.post('/registered',[check('email').isEmail(), body('password').isLength({min:8})], function (req,res) {
         // saving data in database
         const errors = validationResult(req);
+        req.sanitize(req.body.first);
 
         if (!errors.isEmpty()) {
             res.redirect('./register');}
@@ -35,7 +36,7 @@ module.exports = function(app, weatherData) {
             const saltRounds = 10;
             const plainPassword = req.body.password;
 
-            req.sanitize(req.body.first);
+            
 
             bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
                 // Store hashed password in your database.
