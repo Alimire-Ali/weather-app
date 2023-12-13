@@ -104,6 +104,24 @@ module.exports = function(app, weatherData) {
         })
     })
 
+    app.get('/weather', redirectLogin, (req,res) => {
+        
+
+        const request = require('request');
+          
+        let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
+        let city = 'london';
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+                     
+        request(url, function (err, response, body) {
+          if(err){
+            console.log('error:', error);
+          } else {
+            res.send(body);
+          } 
+        });
+    })
+
     
 
     // app.get('/list', function(req, res) {
