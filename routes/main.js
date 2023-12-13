@@ -117,7 +117,14 @@ module.exports = function(app, weatherData) {
           if(err){
             console.log('error:', error);
           } else {
-            res.send(body);
+            // res.send(body);
+            var weather = JSON.parse(body)
+            var wmsg = 'It is '+ weather.main.temp + 
+            ' degrees in '+ weather.name +
+            '! <br> The humidity now is: ' + 
+            weather.main.humidity;
+            res.send (wmsg);
+
           } 
         });
     })
