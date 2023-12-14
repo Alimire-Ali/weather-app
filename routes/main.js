@@ -140,7 +140,8 @@ module.exports = function(app, weatherData) {
                     let country = cityData.country;
                     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
 
-                    return new Promise((resolve, reject) =>{
+                    return new Promise((resolve, reject) =>{ // try to understand promises to keep the api to run multiple times to get every city in the database inputed into the screen
+                                                             // but it only sends the most recently added city to the screen. Don't have much time to get a solution for it.
                         request(url, function (err, response, body) {
                             if(err){
                               console.log('error:', error);
@@ -152,7 +153,7 @@ module.exports = function(app, weatherData) {
                               ' degrees in '+ weather.name +
                               '! <br> The humidity now is: ' + 
                               weather.main.humidity;
-                              res.send (wmsg);
+                              res.send (wmsg) + 'The timezone for' + weather.name + 'is :' + weather.city.timezone;
                               }
                               else {
                               res.send ("No data found");
