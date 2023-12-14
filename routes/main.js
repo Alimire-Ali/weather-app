@@ -30,8 +30,8 @@ module.exports = function(app, weatherData) {
                 const request = require('request');
           
                 let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
-                let city = result[0].city;
-                let country = result[0].country;
+                const city = result[0].city;
+                const country = result[0].country;
                 let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
                      
                 request(url, function (err, response, body) {
