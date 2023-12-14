@@ -28,7 +28,7 @@ module.exports = function(app, weatherData) {
             }
             else {
                 const request = require('request');
-          
+                console.log(result);
                 let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
                 const city = result[0].city;
                 const country = result[0].country;
