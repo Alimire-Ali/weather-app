@@ -33,7 +33,7 @@ module.exports = function(app, weatherData) {
                     var wmsg = 'It is '+ weather.main.temp + 
                     ' degrees in '+ weather.name +
                     '! <br> The humidity now is: ' + 
-                    weather.main.humidity + 'The timezone for' + weather.name + 'is :' + weather.timezone;
+                    weather.main.humidity + 'The timezone for ' + weather.name + 'is :' + weather.timezone;
                     res.send (wmsg);
                     }
                     else {
