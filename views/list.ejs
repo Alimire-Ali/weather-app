@@ -9,7 +9,7 @@
     <h2>These are the countries currently saved in our database</h2>
     <ul>
         <% for(let i = 0; i < availableCity.length; i++) { %>
-            <li><%= availableCity[i].city%> , £<%= availableCity[i].country%> </li>
+            <li><%= availableCity[i].city%> , <%= availableCity[i].country%> </li>
             <% } %>
         </ul>
   </body>

@@ -125,30 +125,47 @@ module.exports = function(app, weatherData) {
     })
 
     app.get('/weather', redirectLogin, (req,res) => {
+        const sqlquery = 'SELECT city, country FROM city';
         const request = require('request');
           
-        let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
-        let city = 'london';
-        let country = 'GB';
-        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
-                     
-        request(url, function (err, response, body) {
-          if(err){
-            console.log('error:', error);
-          } else {
-            // res.send(body);
-            var weather = JSON.parse(body)
-            if (weather!==undefined && weather.main!==undefined) {
-            var wmsg = 'It is '+ weather.main.temp + 
-            ' degrees in '+ weather.name +
-            '! <br> The humidity now is: ' + 
-            weather.main.humidity;
-            res.send (wmsg);
+        db.query(sqlQuery, (err, result) => {
+            if (err) {
+              console.error(err.message);
+              return console.error(err.message);
             }
-            else {
-            res.send ("No data found");
+            if (result.length > 0){ 
+                let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
+                Promise.all(result.map(cityData => {
+                    let city = cityData.city;
+                    let country = cityData.country;
+                    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
+
+                    return new Promise((resolve, reject) =>{
+                        request(url, function (err, response, body) {
+                            if(err){
+                              console.log('error:', error);
+                            } else {
+                              // res.send(body);
+                              var weather = JSON.parse(body)
+                              if (weather!==undefined && weather.main!==undefined) {
+                              var wmsg = 'It is '+ weather.main.temp + 
+                              ' degrees in '+ weather.name +
+                              '! <br> The humidity now is: ' + 
+                              weather.main.humidity;
+                              res.send (wmsg);
+                              }
+                              else {
+                              res.send ("No data found");
+                              }
+                            } 
+                          });
+                    });
+                }))
             }
-          } 
+            else{
+                res.send('no cities found in database');
+            }
+        
         });
     })
 
@@ -196,22 +213,5 @@ module.exports = function(app, weatherData) {
         res.send(' This book is added to database, City: '+ req.body.city + ' Country: ' + req.body.country);
         });
         });
-        
-
-        
-
-    // app.get('/barginbooks',function(req,res){ //to get the bargin books page
-    //     let sqlquery = "SELECT * FROM books"; // query database to get all the books
-    //     // execute sql query
-    //     db.query(sqlquery, (err, result) => { 
-    //         if (err) {
-    //         res.redirect('./'); 
-    //     } 
-    //     let newData = Object.assign({}, weatherData, {availableBooks:result});
-    //     console.log(newData)
-    //     res.render("barginbooks.ejs", newData) 
-    //     });
-    // });
-
         
 }
