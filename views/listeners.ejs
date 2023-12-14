@@ -9,7 +9,7 @@
     <h2>These are the logins</h2>
     <ul>
         <% for(let i = 0; i < availableLogins.length; i++) { %>
-            <li><%= availableLogins[i].first%> , £<%= availableLogins[i].last%> , £<%= availableLogins[i].email%> , £<%= availableLogins[i].username%></li>
+            <li><%= availableLogins[i].first%> , <%= availableLogins[i].last%> , <%= availableLogins[i].email%> , <%= availableLogins[i].username%></li>
             <% } %>
         </ul>
   </body>
