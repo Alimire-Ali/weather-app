@@ -152,8 +152,8 @@ module.exports = function(app, weatherData) {
                               var wmsg = 'It is '+ weather.main.temp + 
                               ' degrees in '+ weather.name +
                               '! <br> The humidity now is: ' + 
-                              weather.main.humidity;
-                              res.send (wmsg) + 'The timezone for' + weather.name + 'is :' + weather.city.timezone;
+                              weather.main.humidity +'The timezone for' + weather.name + 'is :' + weather.city.timezone;
+                              res.send (wmsg);
                               }
                               else {
                               res.send ("No data found");
