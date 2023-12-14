@@ -18,7 +18,7 @@ module.exports = function(app, weatherData) {
         res.render("search.ejs", weatherData);
     });
     app.get('/search-result', function (req, res) {
-                req.query.keyword = req.sanitize(req.query.sanitize);
+                req.query.keyword = req.sanitize(req.query.keyword);
 
                 const request = require('request');
                 let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
