@@ -17,45 +17,69 @@ module.exports = function(app, weatherData) {
     app.get('/search',redirectLogin,function(req,res){
         res.render("search.ejs", weatherData);
     });
-    // app.get('/search-result', function (req, res) {
-    //     //searching in the database
-    //     let sqlquery = "SELECT * FROM city WHERE city = ? ";
-    //     let weatherdetails = [req.body.keyword];
-    //     db.query(sqlquery, weatherdetails, (err, result) => {
-    //         console.log(result);
-    //         if (err){
-    //             return console.error(err.message);
-    //         }
-    //         else {
-    //             const request = require('request');
-    //             console.log(result);
-    //             let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
-    //             const city = result[0].city;
-    //             const country = result[0].country;
-    //             let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
+    app.get('/search-result', function (req, res) {
+        //searching in the database
+        // let sqlquery = "SELECT * FROM city WHERE city = ? ";
+        // let weatherdetails = [req.body.keyword];
+        // db.query(sqlquery, weatherdetails, (err, result) => {
+        //     console.log(result);
+        //     if (err){
+        //         return console.error(err.message);
+        //     }
+        //     else {
+        //         const request = require('request');
+        //         console.log(result);
+        //         let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
+        //         const city = result[0].city;
+        //         const country = result[0].country;
+        //         let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
                      
-    //             request(url, function (err, response, body) {
-    //             if(err){
-    //                 console.log('error:', error);
-    //             } else {
-    //                 // res.send(body);
-    //                 var weather = JSON.parse(body)
-    //                 if (weather!==undefined && weather.main!==undefined) {
-    //                 var wmsg = 'It is '+ weather.main.temp + 
-    //                 ' degrees in '+ weather.name +
-    //                 '! <br> The humidity now is: ' + 
-    //                 weather.main.humidity;
-    //                 res.send (wmsg);
-    //                 }
-    //                 else {
-    //                 res.send ("No data found please add your City to the database!");
-    //                 }
-    //                 } 
-    //             });
-    //             }
+        //         request(url, function (err, response, body) {
+        //         if(err){
+        //             console.log('error:', error);
+        //         } else {
+        //             // res.send(body);
+        //             var weather = JSON.parse(body)
+        //             if (weather!==undefined && weather.main!==undefined) {
+        //             var wmsg = 'It is '+ weather.main.temp + 
+        //             ' degrees in '+ weather.name +
+        //             '! <br> The humidity now is: ' + 
+        //             weather.main.humidity;
+        //             res.send (wmsg);
+        //             }
+        //             else {
+        //             res.send ("No data found please add your City to the database!");
+        //             }
+        //             } 
+        //         });
+        //         }
             
-    //     });
-    // });
+        // });
+
+                const request = require('request');
+                let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
+                let city = req.query.keyword;
+                let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+                     
+                request(url, function (err, response, body) {
+                if(err){
+                    console.log('error:', error);
+                } else {
+                    // res.send(body);
+                    var weather = JSON.parse(body)
+                    if (weather!==undefined && weather.main!==undefined) {
+                    var wmsg = 'It is '+ weather.main.temp + 
+                    ' degrees in '+ weather.name +
+                    '! <br> The humidity now is: ' + 
+                    weather.main.humidity;
+                    res.send (wmsg);
+                    }
+                    else {
+                    res.send ("No data found please add your City to the database!");
+                    }
+                    } 
+                });
+    });
     app.get('/register', function (req,res) {
         res.render('register.ejs', weatherData);                                                                     
     });                                                                                                 
@@ -210,45 +234,7 @@ module.exports = function(app, weatherData) {
         res.send(' This book is added to database, City: '+ req.body.city + ' Country: ' + req.body.country);
         });
         });
-        app.get('/search-result', function (req, res) {
-            //searching in the database
-            let sqlquery = "SELECT city, country FROM city WHERE city = ?";
-            let weatherdetails = [req.body.keyword];
-            db.query(sqlquery, weatherdetails, (err, result) => {
-                console.log(result);
-                if (err){
-                    return console.error(err.message);
-                }
-                else {
-                    const request = require('request');
-                    console.log(result);
-                    let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
-                    const city = result[0].city;
-                    const country = result[0].country;
-                    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
-                         
-                    request(url, function (err, response, body) {
-                    if(err){
-                        console.log('error:', error);
-                    } else {
-                        // res.send(body);
-                        var weather = JSON.parse(body)
-                        if (weather!==undefined && weather.main!==undefined) {
-                        var wmsg = 'It is '+ weather.main.temp + 
-                        ' degrees in '+ weather.name +
-                        '! <br> The humidity now is: ' + 
-                        weather.main.humidity;
-                        res.send (wmsg);
-                        }
-                        else {
-                        res.send ("No data found please add your City to the database!");
-                        }
-                        } 
-                    });
-                    }
-                
-            });
-        });
+        
 
         
 
