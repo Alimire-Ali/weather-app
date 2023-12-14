@@ -164,9 +164,9 @@ module.exports = function(app, weatherData) {
     });
     app.post('/countryadded', function (req,res) {
         // saving data in database
-        let sqlquery = "INSERT INTO city (city,country) VALUES (?,?)";
+        let sqlquery = "INSERT INTO city (city, country) VALUES (?,?)";
         // execute sql query
-        let newrecord = [req.body.city + req.body.country];
+        let newrecord = [req.body.city, req.body.country];
         db.query(sqlquery, newrecord, (err, result) => {
         if (err) {
         return console.error(err.message);
