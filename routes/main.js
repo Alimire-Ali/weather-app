@@ -40,7 +40,6 @@ module.exports = function(app, weatherData) {
             const plainPassword = req.body.password;
 
             
-
             bcrypt.hash(plainPassword, saltRounds, function(err, hashedPassword) {
                 // Store hashed password in your database.
                 console.log(hashedPassword);
@@ -148,7 +147,7 @@ module.exports = function(app, weatherData) {
     });
 
     app.get('/listeners', function(req, res) {
-        let sqlquery = "SELECT * FROM registration"; // query database to get all the logins
+        let sqlquery = "SELECT * FROM logins"; // query database to get all the logins
     // execute sql query
     db.query(sqlquery, (err, result) => { 
         if (err) {
