@@ -75,7 +75,7 @@ module.exports = function(app, weatherData) {
                     return console.error(err.message);
                     }
                     else
-                    res.send(' Your details have been added to the database, name: '+ req.body.first + ' ' + req.body.last + ' Your email is: ' + req.body.email + ' Your password is: '+ req.body.password + ' Your hashed password is: ' + hashedPassword );
+                    res.send(' Your details have been added to the database, name: '+ req.body.first + ' ' + req.body.last + ' Your email is: ' + req.body.email + ' Your password is: '+ req.body.password + ' Your hashed password is: ' + hashedPassword + '<br> <a href='+'./'+'>Home</a></br>');
                     });
 
             })
