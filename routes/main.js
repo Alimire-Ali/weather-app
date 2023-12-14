@@ -33,7 +33,7 @@ module.exports = function(app, weatherData) {
                     var wmsg = 'It is '+ weather.main.temp + 
                     ' degrees in '+ weather.name +
                     '! <br> The humidity now is: ' + 
-                    weather.main.humidity;
+                    weather.main.humidity + 'The timezone for' + weather.name + 'is :' + timezone;
                     res.send (wmsg);
                     }
                     else {
@@ -152,7 +152,7 @@ module.exports = function(app, weatherData) {
                               var wmsg = 'It is '+ weather.main.temp + 
                               ' degrees in '+ weather.name +
                               '! <br> The humidity now is: ' + 
-                              weather.main.humidity +'The timezone for' + weather.name + 'is :' + weather.city.timezone;
+                              weather.main.humidity +'The timezone for' + weather.name + 'is :' + timezone;
                               res.send (wmsg);
                               }
                               else {
