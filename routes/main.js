@@ -128,7 +128,7 @@ module.exports = function(app, weatherData) {
         const sqlquery = 'SELECT city, country FROM city';
         const request = require('request');
           
-        db.query(sqlQuery, (err, result) => {
+        db.query(sqlquery, (err, result) => {
             if (err) {
               console.error(err.message);
               return console.error(err.message);
