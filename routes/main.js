@@ -37,7 +37,7 @@ module.exports = function(app, weatherData) {
                     res.send (wmsg);
                     }
                     else {
-                    res.send ("No data found please add your City to the database!");
+                    res.send ("No data found!");
                     }
                     } 
                 });
