@@ -109,7 +109,8 @@ module.exports = function(app, weatherData) {
           
         let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
         let city = 'london';
-        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+        let country = 'GB';
+        let url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&units=metric&appid=${apiKey}`
                      
         request(url, function (err, response, body) {
           if(err){
