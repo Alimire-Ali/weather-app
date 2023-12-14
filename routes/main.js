@@ -18,6 +18,8 @@ module.exports = function(app, weatherData) {
         res.render("search.ejs", weatherData);
     });
     app.get('/search-result', function (req, res) {
+                req.query.keyword = req.sanitize(req.query.sanitize);
+
                 const request = require('request');
                 let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
                 let city = req.query.keyword;
@@ -83,6 +85,7 @@ module.exports = function(app, weatherData) {
         res.render('login.ejs', weatherData);                                                                     
     });
     app.post('/loggedin', function (req,res) {
+        req.body.username = req.sanitize(req.body.username);
         const bcrypt = require('bcrypt');
 
         let sqlquery = "SELECT hashedPassword FROM logins WHERE username = ? ";
