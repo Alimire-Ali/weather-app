@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=appName%> app</title>
+    <link rel="stylesheet"  type="text/css" href="main.css" />
+  </head>
+  <body>
+    <h1>About <%=appName%></h1>
+    <h2>These are the countries currently listed</h2>
+    <ul>
+        <% for(let i = 0; i < availableCity.length; i++) { %>
+            <li><%= availableCity[i].city%> , £<%= availableCity[i].country%> </li>
+            <% } %>
+        </ul>
+  </body>
+</html>

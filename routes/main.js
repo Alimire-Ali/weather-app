@@ -105,8 +105,6 @@ module.exports = function(app, weatherData) {
     })
 
     app.get('/weather', redirectLogin, (req,res) => {
-        
-
         const request = require('request');
           
         let apiKey = 'afcfc34230c69284bebcee52cc52ea5c';
@@ -135,18 +133,18 @@ module.exports = function(app, weatherData) {
 
     
 
-    // app.get('/list', function(req, res) {
-    //     let sqlquery = "SELECT * FROM books"; // query database to get all the books
-    // // execute sql query
-    // db.query(sqlquery, (err, result) => { 
-    //     if (err) {
-    //     res.redirect('./'); 
-    // } 
-    // let newData = Object.assign({}, weatherData, {availableBooks:result});
-    // console.log(newData)
-    // res.render("list.ejs", newData) 
-    // });
-    // });
+    app.get('/list', function(req, res) {
+        let sqlquery = "SELECT * FROM city"; // query database to get all the cities
+    // execute sql query
+    db.query(sqlquery, (err, result) => { 
+        if (err) {
+        res.redirect('./'); 
+    } 
+    let newData = Object.assign({}, weatherData, {availableCity:result});
+    console.log(newData)
+    res.render("list.ejs", newData) 
+    });
+    });
 
     app.get('/listeners', function(req, res) {
         let sqlquery = "SELECT * FROM registration"; // query database to get all the logins
@@ -161,21 +159,20 @@ module.exports = function(app, weatherData) {
     });
     });
 
-    app.get('/addbook',function(req,res){ //to get the addbook page
-        res.render('addbook.ejs', weatherData);
+    app.get('/addcountry',function(req,res){ //to get the addbook page
+        res.render('addcountry.ejs', weatherData);
     });
-    app.post('/bookadded', function (req,res) {
+    app.post('/countryadded', function (req,res) {
         // saving data in database
-        let sqlquery = "INSERT INTO books (name, price) VALUES (?,?)";
+        let sqlquery = "INSERT INTO city (city,country) VALUES (?,?)";
         // execute sql query
-        let newrecord = [req.body.name, req.body.price];
+        let newrecord = [req.body.country];
         db.query(sqlquery, newrecord, (err, result) => {
         if (err) {
         return console.error(err.message);
         }
         else
-        res.send(' This book is added to database, name: '+ req.body.name
-        + ' price '+ req.body.price);
+        res.send(' This book is added to database, City: '+ req.body.city + ' Country: ' + req.body.country);
         });
         });
 
